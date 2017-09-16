@@ -39,6 +39,7 @@ def count_session(cells):
         except ValueError:
             find_flag = -1
             continue
+
         if find_index - i > 1:
             find_flag = -1
             continue
@@ -55,7 +56,7 @@ def gen_table(filename):
         table_structure = [
             [0, 1],  # 開始時刻、終了時刻
             [2],  # プログラム（セッション内容）
-            [7, 8, 5, 6],  # 詳細 = 発表タイトル（発表区分）、発表者名（発表者所属）
+            [7, 8, 5, 6],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
             [3]  # 座長
         ]
 
@@ -77,31 +78,29 @@ def gen_table(filename):
             tmp = []
             for j, cell in enumerate(row):
                 if i == 0:
-                    tmp.append("<th>%s</th>" % cell) if j != 3 else tmp.append("<th class=\"right\">%s</th>" % cell)
+                    c = '<th class="right">%s</th>' % cell if j == 3 else '<th>%s</th>' % cell
+                elif j == 2:
+                    c = '<td>%s</td>' % cell
+                elif counter[i] == 0:
+                    continue
                 elif j == 0:
-                    if counter[i] == 0:
-                        continue
-                    elif counter[i] == 1:
-                        tmp.append("<td>%s</td>" % cell)
+                    if counter[i] == 1:
+                        c = '<td>%s</td>' % cell
                     else:
-                        c = "%s<br>~<br>%s" % (content[i - 1][0], content[i - 1 + counter[i] - 1][1])
-                        tmp.append("<td rowspan=\"%d\">%s</td>" % (counter[i], c))
+                        cc = '%s<br>~<br>%s' % (content[i - 1][0], content[i - 1 + counter[i] - 1][1])
+                        c = '<td rowspan="%d">%s</td>' % (counter[i], cc)
                 elif j == 1:
-                    if counter[i] == 0:
-                        continue
-                    elif counter[i] == 1:
-                        tmp.append("<td>%s</td>" % cell)
+                    if counter[i] == 1:
+                        c = '<td>%s</td>' % cell
                     else:
-                        tmp.append("<td rowspan=\"%d\">%s</td>" % (counter[i], cell))
+                        c = '<td rowspan="%d">%s</td>' % (counter[i], cell)
                 elif j == 3:
-                    if counter[i] == 0:
-                        continue
-                    elif counter[i] == 1:
-                        tmp.append("<td class=\"right\">%s</td>" % cell)
+                    if counter[i] == 1:
+                        c = '<td class="right">%s</td>' % cell
                     else:
-                        tmp.append("<td class=\"right\" rowspan=\"%d\">%s</td>" % (counter[i], cell))
-                else:
-                    tmp.append("<td>%s</td>" % cell)
+                        c = '<td class="right" rowspan="%d">%s</td>' % (counter[i], cell)
+                tmp.append(c)
+
             table.append(tmp)
 
         v = {
