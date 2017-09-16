@@ -2,13 +2,21 @@ import csv
 from jinja2 import Environment, FileSystemLoader
 
 
-def join(source, index):
+def join_cell(source, index):
     dst = []
     if 0 in index:
         for i in index:
             if source[i] != '':
                 dst.append(source[i])
         return '<br>~</br>'.join(dst)
+    elif 5 in index:
+        # [7, 8, 5, 6],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
+        if source[5] != '':
+            dst.append("<b>%s</b>" % source[7])
+            dst.append("[%s]<br>" % source[8])
+            dst.append(source[5])
+            dst.append("(%s)" % source[6])
+        return ' '.join(dst)
     else:
         for i in index:
             if source[i] != '':
@@ -59,7 +67,7 @@ def gen_table(filename):
 
         cells = [['時間', 'プログラム', '詳細', '座長']]
         for row in content:
-            tmp = list(map(lambda i: join(row, i), table_structure))
+            tmp = list(map(lambda i: join_cell(row, i), table_structure))
             cells.append(tmp)
 
         counter = count_session(cells)
