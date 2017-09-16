@@ -11,7 +11,7 @@ def join(source, index):
 
 
 def count_session(cells):
-    program = list(map(lambda v: v[0], cells))
+    program = list(map(lambda v: v[1], cells))
     find_flag = -1
     flaged_index = -1
     counter = []
@@ -32,15 +32,15 @@ def count_session(cells):
         if find_flag < 0:
             find_flag = 1
             flaged_index = i
-            
+
     return counter
 
 
 def gen_table(filename):
     with open(filename, newline='') as f:
         table_structure = [
-            [2],  # プログラム（セッション内容）
             [0, 1],  # 開始時刻、終了時刻
+            [2],  # プログラム（セッション内容）
             [7, 8, 5, 6],  # 詳細 = 発表タイトル（発表区分）、発表者名（発表者所属）
             [3]  # 座長
         ]
@@ -51,11 +51,11 @@ def gen_table(filename):
         next(csv.reader(f))
         content = list(csv.reader(f))
 
-        cells = [['プログラム', '時間', '詳細', '座長']]
+        cells = [['時間', 'プログラム', '詳細', '座長']]
         for row in content:
             tmp = list(map(lambda i: join(row, i), table_structure))
             cells.append(tmp)
-        
+
         counter = count_session(cells)
 
         table = []
@@ -64,7 +64,15 @@ def gen_table(filename):
             for j, cell in enumerate(row):
                 if i == 0:
                     tmp.append("<th>%s</th>" % cell)
-                elif j == 0 or j == 3:
+                elif j == 0:
+                    if counter[i] == 0:
+                        continue
+                    elif counter[i] == 1:
+                        tmp.append("<td>%s</td>" % cell)
+                    else:
+                        c = "%s<br>~<br>%s" % (content[i][0], content[i - 1 + counter[i] - 1][1])
+                        tmp.append("<td rowspan=\"%d\">%s</td>" % (counter[i], c))
+                elif j == 1 or j == 3:
                     if counter[i] == 0:
                         continue
                     elif counter[i] == 1:
