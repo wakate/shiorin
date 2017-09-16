@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>しおり / タイムテーブル</title>
+
+    <link rel="stylesheet" type="text/css" href="shiori.css">
 </head>
 <body>
 
 <h2>タイムテーブル</h2>
 <h3>10月7日(土)</h3>
-<table border="1">
+<table>
     {% for row in table %}
     <tr align="center">{% for cell in row %}
         {{ cell }}{% endfor %}

@@ -77,7 +77,7 @@ def gen_table(filename):
             tmp = []
             for j, cell in enumerate(row):
                 if i == 0:
-                    tmp.append("<th>%s</th>" % cell)
+                    tmp.append("<th>%s</th>" % cell) if j != 3 else tmp.append("<th class=\"right\">%s</th>" % cell)
                 elif j == 0:
                     if counter[i] == 0:
                         continue
@@ -86,13 +86,20 @@ def gen_table(filename):
                     else:
                         c = "%s<br>~<br>%s" % (content[i - 1][0], content[i - 1 + counter[i] - 1][1])
                         tmp.append("<td rowspan=\"%d\">%s</td>" % (counter[i], c))
-                elif j == 1 or j == 3:
+                elif j == 1:
                     if counter[i] == 0:
                         continue
                     elif counter[i] == 1:
                         tmp.append("<td>%s</td>" % cell)
                     else:
                         tmp.append("<td rowspan=\"%d\">%s</td>" % (counter[i], cell))
+                elif j == 3:
+                    if counter[i] == 0:
+                        continue
+                    elif counter[i] == 1:
+                        tmp.append("<td class=\"right\">%s</td>" % cell)
+                    else:
+                        tmp.append("<td class=\"right\" rowspan=\"%d\">%s</td>" % (counter[i], cell))
                 else:
                     tmp.append("<td>%s</td>" % cell)
             table.append(tmp)
