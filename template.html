@@ -10,10 +10,9 @@
 <h2>10月7日(土)</h2>
 <table border="1">
     {% for row in table %}
-    <tr>
-      {{ row }}
-    </tr>
-    {% endfor %}
+    <tr>{% for cell in row %}
+        {{ cell }}{% endfor %}
+    </tr>{% endfor %}
 </table>
 
 </body>
