@@ -62,7 +62,9 @@ def gen_table(filename):
         for i, row in enumerate(cells):
             tmp = []
             for j, cell in enumerate(row):
-                if j == 0 or j == 3:
+                if i == 0:
+                    tmp.append("<th>%s</th>" % cell)
+                elif j == 0 or j == 3:
                     if counter[i] == 0:
                         continue
                     elif counter[i] == 1:
