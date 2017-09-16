@@ -123,6 +123,3 @@ def gen_table(filename):
     }
     with open('hoge.html', 'w') as f:
         f.write(tmpl.render(v))
-
-
-gen_table('sample.csv')
