@@ -9,13 +9,12 @@ def join_cell(source, index):
             if source[i] != '':
                 dst.append(source[i])
         return '<br>~</br>'.join(dst)
-    elif 5 in index:
-        # [7, 8, 5, 6],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
-        if source[5] != '':
-            dst.append("<b>%s</b>" % source[7])
-            dst.append("[%s]<br>" % source[8])
-            dst.append(source[5])
-            dst.append("(%s)" % source[6])
+    elif 6 in index:
+        if source[6] != '':
+            dst.append("<b>%s</b>" % source[8])
+            dst.append("[%s]<br>" % source[9])
+            dst.append(source[6])
+            dst.append("(%s)" % source[7])
         return ' '.join(dst)
     else:
         for i in index:
@@ -55,9 +54,9 @@ def gen_table(filename):
     with open(filename, newline='') as f:
         table_structure = [
             [0, 1],  # 開始時刻、終了時刻
-            [2],  # プログラム（セッション内容）
-            [7, 8, 5, 6],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
-            [3]  # 座長
+            [3],  # プログラム（セッション内容）
+            [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
+            [4]  # 座長
         ]
 
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
