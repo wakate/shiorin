@@ -7,7 +7,7 @@ def join(source, index):
     for i in index:
         if source[i] != '':
             dst.append(source[i])
-    return ', '.join(dst)
+    return '/'.join(dst)
 
 
 def count_into_session(reader):
@@ -36,33 +36,60 @@ def gen_table(filename):
         tmpl = env.get_template('template.html')
         # tmpl.render(name='Hoge')
 
-        reader = csv.reader(f)
-        header = next(reader)
-        content = list(reader)
-        # counter = count_into_session(content)
-        tbl = []
-        tbl.append('<tr>')
-        for cell in ['プログラム', '時間', '詳細', '座長']:
-            tbl.append('<th>')
-            tbl.append(cell)
-            tbl.append('</th>')
-        tbl.append('</tr>')
+        header = next(csv.reader(f))
+        content = list(csv.reader(f))
+        counter = count_into_session(content)
 
+        tbl = [['プログラム', '時間', '詳細', '座長']]
         for row in content:
-            tbl.append('<tr>')
-            for index in table:
-                cell = join(row, index)
-                # if cell in counter:
-                tbl.append('<td>')
-                tbl.append(cell)
-                tbl.append('</td>')
-            tbl.append('</tr>')
+            tmp = list(map(lambda i: join(row, i), table))
+            tbl.append(tmp)
+
+        program = list(map(lambda v: v[0], tbl))
+        find_flag = -1
+        flaged_index = -1
+        count_list = []
+        for i, v in enumerate(program):
+            count_list.append(1)
+            if find_flag > 0:
+                count_list[i] -= 1
+                count_list[flaged_index] += 1
+            try:
+                find_index = program.index(v, i + 1)
+            except ValueError:
+                find_flag = -1
+                continue
+            if find_index - i > 1:
+                find_flag = -1
+                continue
+
+            if find_flag < 0:
+                find_flag = 1
+                flaged_index = i
+
+        tbl2 = []
+        for i, row in enumerate(tbl):
+            tmp = []
+            for j, cell in enumerate(row):
+                if j == 0 or j == 3:
+                    if count_list[i] == 0:
+                        continue
+                    elif count_list[i] == 1:
+                        tmp.append("<td>%s</td>" % cell)
+                    else:
+                        tmp.append("<td rowspan=\"%d\">%s</td>" % (count_list[i], cell))
+                else:
+                    tmp.append("<td>%s</td>" % cell)
+            tbl2.append(''.join(tmp))
+            tmp = []
 
         v = {
-            'table': ''.join(tbl)
+            'table': tbl2,
         }
         html = tmpl.render(v)
-        print(html)
+        f = open('hoge.html', 'w')
+        f.write(html)
+        f.close()
 
 
 gen_table('sample.csv')
