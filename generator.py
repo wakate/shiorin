@@ -4,10 +4,16 @@ from jinja2 import Environment, FileSystemLoader
 
 def join(source, index):
     dst = []
-    for i in index:
-        if source[i] != '':
-            dst.append(source[i])
-    return '/'.join(dst)
+    if 0 in index:
+        for i in index:
+            if source[i] != '':
+                dst.append(source[i])
+        return '<br>~</br>'.join(dst)
+    else:
+        for i in index:
+            if source[i] != '':
+                dst.append(source[i])
+        return '/'.join(dst)
 
 
 def count_session(cells):
@@ -70,7 +76,7 @@ def gen_table(filename):
                     elif counter[i] == 1:
                         tmp.append("<td>%s</td>" % cell)
                     else:
-                        c = "%s<br>~<br>%s" % (content[i][0], content[i - 1 + counter[i] - 1][1])
+                        c = "%s<br>~<br>%s" % (content[i - 1][0], content[i - 1 + counter[i] - 1][1])
                         tmp.append("<td rowspan=\"%d\">%s</td>" % (counter[i], c))
                 elif j == 1 or j == 3:
                     if counter[i] == 0:
