@@ -1,0 +1,48 @@
+section.table {
+    margin-bottom: 4em;
+}
+
+section.table h3 {
+    margin: 0.5em 0 1.5em 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-bottom: 2px solid #333;
+}
+
+th {
+    border-bottom: 5px solid #333;
+    border-right: 2px solid #333;
+    padding: 0.5em;
+}
+
+td {
+    border-bottom: 2px dashed #333;
+    border-right: 2px solid #333;
+}
+
+td.detail {
+    padding: 0 4px;
+}
+
+th.time {
+    width: 10%
+}
+
+th.program {
+    width: 20%
+}
+
+th.detail {
+    width: 60%
+}
+
+th.chairperson {
+    width: 10%
+}
+
+td.chairperson, th.chairperson {
+    border-right: 0;
+}
