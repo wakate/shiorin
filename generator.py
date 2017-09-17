@@ -101,9 +101,17 @@ def gen_timetables(filename):
             tmp = []
             for j, cell in enumerate(row):
                 if i == 0:
-                    c = '<th class="right">%s</th>' % cell if j == 3 else '<th>%s</th>' % cell
+                    if j == 0:
+                        cls = 'time'
+                    elif j == 1:
+                        cls = 'program'
+                    elif j == 2:
+                        cls = 'detail'
+                    elif j == 3:
+                        cls = 'chairperson'
+                    c = '<th class="%s">%s</th>' % (cls, cell)
                 elif j == 2:
-                    c = '<td>%s</td>' % cell
+                    c = '<td class="detail">%s</td>' % cell
                 elif counter[i] == 0:
                     continue
                 elif j == 0:
@@ -119,9 +127,9 @@ def gen_timetables(filename):
                         c = '<td rowspan="%d">%s</td>' % (counter[i], cell)
                 elif j == 3:
                     if counter[i] == 1:
-                        c = '<td class="right">%s</td>' % cell
+                        c = '<td class="chairperson">%s</td>' % cell
                     else:
-                        c = '<td class="right" rowspan="%d">%s</td>' % (counter[i], cell)
+                        c = '<td class="chairperson" rowspan="%d">%s</td>' % (counter[i], cell)
                 tmp.append(c)
             table.append(tmp)
         tables.append(table)

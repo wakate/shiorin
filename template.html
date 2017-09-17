@@ -23,14 +23,16 @@
     <div class="container">
         <h2>タイムテーブル</h2>
         {% for table in tables %}
-        <h3>{{ titles[loop.index - 1] }}</h3>
-        <table>
-            {% for row in table %}
-            <tr align="center">{% for cell in row %}
-                {{ cell }}{% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
+        <section>
+            <h3>{{ titles[loop.index - 1] }}</h3>
+            <table>
+                {% for row in table %}
+                <tr align="center">{% for cell in row %}
+                    {{ cell }}{% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
         {% endfor %}
     </div>
 </div>
