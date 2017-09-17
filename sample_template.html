@@ -10,11 +10,14 @@
 
 <headed>
     <div class="container">
-        <h1>第50回情報科学若手の会</h1>
+        情報処理学会　ぴよぴよシンポジウム委員会
+        <h1>第50回ぴよぴよシンポジウム</h1>
         2017年10月7日 ~ 2017年10月8日
-
         <div id="sponser">
-            協賛
+            <h3>協賛</h3>
+            <ul>
+                <li>ほげ株式会社 様(1口)</li>
+            </ul>
         </div>
     </div>
 </headed>
@@ -23,7 +26,7 @@
     <div class="container">
         <h2>タイムテーブル</h2>
         {% for table in tables %}
-        <section>
+        <section class="table">
             <h3>{{ titles[loop.index - 1] }}</h3>
             <table>
                 {% for row in table %}
@@ -34,6 +37,21 @@
             </table>
         </section>
         {% endfor %}
+    </div>
+
+    <div class="container">
+        <h2>アクセス</h2>
+        <section class="text">
+            <div class="text-body">
+                山喜旅館の最寄り駅はJR伊東線伊東駅です。
+            </div>
+        </section>
+        <section class="text">
+            <h3>徒歩</h3>
+            <div class="text-body">
+                伊東駅から約7分です。
+            </div>
+        </section>
     </div>
 </div>
 </body>
