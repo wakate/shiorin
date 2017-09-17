@@ -23,6 +23,21 @@ def join_cell(source, index):
         return '/'.join(dst)
 
 
+def gen_rows(content):
+    table_structure = [
+        [0, 1],  # 開始時刻、終了時刻
+        [3],  # プログラム（セッション内容）
+        [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
+        [4]  # 座長
+    ]
+    rows = []
+    for row in content:
+        tmp = list(map(lambda i: join_cell(row, i), table_structure))
+        rows.append(tmp)
+
+    return rows
+
+
 def count_session(cells):
     program = list(map(lambda v: v[1], cells))
     find_flag = -1
@@ -50,80 +65,77 @@ def count_session(cells):
     return counter
 
 
-def gen_table(filename):
+def process_sheet(sheet):
+    titles = []
+    sep = []
+    for i, row in enumerate(sheet):
+        if row[0] == '開始時刻':
+            sep.append(i)
+        elif row[0] != '' and row[1] == '':
+            titles.append(row[0])
+    contents = []
+    for i, v in enumerate(sep):
+        if i + 1 < len(sep):
+            contents.append(sheet[v + 1:sep[i + 1] - 1])
+        else:
+            contents.append(sheet[v + 1:])
+
+    return [titles, contents]
+
+
+def gen_timetables(filename):
     with open(filename, newline='') as f:
-        table_structure = [
-            [0, 1],  # 開始時刻、終了時刻
-            [3],  # プログラム（セッション内容）
-            [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
-            [4]  # 座長
-        ]
-
-        env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-        tmpl = env.get_template('template.html')
-
         sheet = list(csv.reader(f))
-        titles = []
-        sep = []
-        for i, row in enumerate(sheet):
-            if row[0] == '開始時刻':
-                sep.append(i)
-            elif row[0] != '' and row[1] == '':
-                titles.append(row[0])
-        contents = []
-        for i, v in enumerate(sep):
-            if i + 1 < len(sep):
-                contents.append(sheet[v + 1:sep[i + 1] - 1])
-            else:
-                contents.append(sheet[v + 1:])
 
-        tables = []
-        for content in contents:
-            cells = [['時間', 'プログラム', '詳細', '座長']]
-            for row in content:
-                tmp = list(map(lambda i: join_cell(row, i), table_structure))
-                cells.append(tmp)
+    [titles, contents] = process_sheet(sheet)
 
-            counter = count_session(cells)
+    tables = []
+    for content in contents:
+        rows = gen_rows(content)
+        rows.insert(0, ['時間', 'プログラム', '詳細', '座長'])
 
-            table = []
-            for i, row in enumerate(cells):
-                tmp = []
-                for j, cell in enumerate(row):
-                    if i == 0:
-                        c = '<th class="right">%s</th>' % cell if j == 3 else '<th>%s</th>' % cell
-                    elif j == 2:
+        counter = count_session(rows)
+
+        table = []
+        for i, row in enumerate(rows):
+            tmp = []
+            for j, cell in enumerate(row):
+                if i == 0:
+                    c = '<th class="right">%s</th>' % cell if j == 3 else '<th>%s</th>' % cell
+                elif j == 2:
+                    c = '<td>%s</td>' % cell
+                elif counter[i] == 0:
+                    continue
+                elif j == 0:
+                    if counter[i] == 1:
                         c = '<td>%s</td>' % cell
-                    elif counter[i] == 0:
-                        continue
-                    elif j == 0:
-                        if counter[i] == 1:
-                            c = '<td>%s</td>' % cell
-                        else:
-                            cc = '%s<br>~<br>%s' % (content[i - 1][0], content[i - 1 + counter[i] - 1][1])
-                            c = '<td rowspan="%d">%s</td>' % (counter[i], cc)
-                    elif j == 1:
-                        if counter[i] == 1:
-                            c = '<td>%s</td>' % cell
-                        else:
-                            c = '<td rowspan="%d">%s</td>' % (counter[i], cell)
-                    elif j == 3:
-                        if counter[i] == 1:
-                            c = '<td class="right">%s</td>' % cell
-                        else:
-                            c = '<td class="right" rowspan="%d">%s</td>' % (counter[i], cell)
-                    tmp.append(c)
-                table.append(tmp)
-            tables.append(table)
-
-        v = {
-            'tables': tables,
-            'titles': titles
-        }
-        html = tmpl.render(v)
-        f = open('hoge.html', 'w')
-        f.write(html)
-        f.close()
+                    else:
+                        cc = '%s<br>~<br>%s' % (content[i - 1][0], content[i - 1 + counter[i] - 1][1])
+                        c = '<td rowspan="%d">%s</td>' % (counter[i], cc)
+                elif j == 1:
+                    if counter[i] == 1:
+                        c = '<td>%s</td>' % cell
+                    else:
+                        c = '<td rowspan="%d">%s</td>' % (counter[i], cell)
+                elif j == 3:
+                    if counter[i] == 1:
+                        c = '<td class="right">%s</td>' % cell
+                    else:
+                        c = '<td class="right" rowspan="%d">%s</td>' % (counter[i], cell)
+                tmp.append(c)
+            table.append(tmp)
+        tables.append(table)
+    return [titles, tables]
 
 
-gen_table('sample.csv')
+def gen_page(timetable, template, page):
+    titles, tables = gen_timetables(timetable)
+
+    env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
+    tmpl = env.get_template(template)
+    v = {
+        'tables': tables,
+        'titles': titles
+    }
+    with open(page, 'w') as f:
+        f.write(tmpl.render(v))
