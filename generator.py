@@ -23,19 +23,19 @@ def join_cell(source, index):
         return '/'.join(dst)
 
 
-def gen_cells(content):
+def gen_rows(content):
     table_structure = [
         [0, 1],  # 開始時刻、終了時刻
         [3],  # プログラム（セッション内容）
         [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
         [4]  # 座長
     ]
-    cells = []
+    rows = []
     for row in content:
         tmp = list(map(lambda i: join_cell(row, i), table_structure))
-        cells.append(tmp)
+        rows.append(tmp)
 
-    return cells
+    return rows
 
 
 def count_session(cells):
@@ -83,24 +83,21 @@ def process_sheet(sheet):
     return [titles, contents]
 
 
-def gen_table(filename):
+def gen_timetables(filename):
     with open(filename, newline='') as f:
         sheet = list(csv.reader(f))
-
-    env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-    tmpl = env.get_template('template.html')
 
     [titles, contents] = process_sheet(sheet)
 
     tables = []
     for content in contents:
-        cells = gen_cells(content)
-        cells.insert(0, ['時間', 'プログラム', '詳細', '座長'])
+        rows = gen_rows(content)
+        rows.insert(0, ['時間', 'プログラム', '詳細', '座長'])
 
-        counter = count_session(cells)
+        counter = count_session(rows)
 
         table = []
-        for i, row in enumerate(cells):
+        for i, row in enumerate(rows):
             tmp = []
             for j, cell in enumerate(row):
                 if i == 0:
@@ -128,10 +125,17 @@ def gen_table(filename):
                 tmp.append(c)
             table.append(tmp)
         tables.append(table)
+    return [titles, tables]
 
+
+def gen_page(timetable, template, page):
+    titles, tables = gen_timetables(timetable)
+
+    env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
+    tmpl = env.get_template(template)
     v = {
         'tables': tables,
         'titles': titles
     }
-    with open('hoge.html', 'w') as f:
+    with open(page, 'w') as f:
         f.write(tmpl.render(v))
