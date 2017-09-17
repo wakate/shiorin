@@ -23,6 +23,21 @@ def join_cell(source, index):
         return '/'.join(dst)
 
 
+def gen_cells(content):
+    table_structure = [
+        [0, 1],  # 開始時刻、終了時刻
+        [3],  # プログラム（セッション内容）
+        [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
+        [4]  # 座長
+    ]
+    cells = []
+    for row in content:
+        tmp = list(map(lambda i: join_cell(row, i), table_structure))
+        cells.append(tmp)
+
+    return cells
+
+
 def count_session(cells):
     program = list(map(lambda v: v[1], cells))
     find_flag = -1
@@ -50,20 +65,7 @@ def count_session(cells):
     return counter
 
 
-def gen_table(filename):
-    with open(filename, newline='') as f:
-        sheet = list(csv.reader(f))
-
-    table_structure = [
-        [0, 1],  # 開始時刻、終了時刻
-        [3],  # プログラム（セッション内容）
-        [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
-        [4]  # 座長
-    ]
-
-    env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-    tmpl = env.get_template('template.html')
-
+def process_sheet(sheet):
     titles = []
     sep = []
     for i, row in enumerate(sheet):
@@ -78,12 +80,22 @@ def gen_table(filename):
         else:
             contents.append(sheet[v + 1:])
 
+    return [titles, contents]
+
+
+def gen_table(filename):
+    with open(filename, newline='') as f:
+        sheet = list(csv.reader(f))
+
+    env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
+    tmpl = env.get_template('template.html')
+
+    [titles, contents] = process_sheet(sheet)
+
     tables = []
     for content in contents:
-        cells = [['時間', 'プログラム', '詳細', '座長']]
-        for row in content:
-            tmp = list(map(lambda i: join_cell(row, i), table_structure))
-            cells.append(tmp)
+        cells = gen_cells(content)
+        cells.insert(0, ['時間', 'プログラム', '詳細', '座長'])
 
         counter = count_session(cells)
 
