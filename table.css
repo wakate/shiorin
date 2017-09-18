@@ -43,6 +43,14 @@ th.chairperson {
     width: 10%
 }
 
-td.chairperson, th.chairperson {
+td.right_edge, th.right_edge {
     border-right: 0;
+}
+
+th.name {
+    width: 15%;
+}
+
+th.title {
+    width: 25%;
 }

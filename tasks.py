@@ -1,7 +1,9 @@
 from invoke import task
-import generator
+from page_generator import PageGenerator
+from abst_table import AbstTable
 
 
 @task
-def gen_web(ctx, timetable):
-    generator.gen_page(timetable, 'template.html', 'hoge.html')
+def gen_web(ctx):
+    pg = PageGenerator
+    pg.generate('template.html', 'hoge.html')
