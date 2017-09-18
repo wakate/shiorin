@@ -42,6 +42,8 @@ class AbstTable(Table):
     def gen_rows(self, content):
         rows = []
         for row in content:
+            if row[self.row_structure[0][0]] == '':
+                continue
             tmp = []
             for col, idxs in enumerate(self.row_structure):
                 context = {}
