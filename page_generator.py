@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-from timetable import TimeTable
+from time_table import TimeTable
 
 
 class PageGenerator:
