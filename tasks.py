@@ -7,9 +7,3 @@ from abst_table import AbstTable
 def gen_web(ctx):
     pg = PageGenerator
     pg.generate('template.html', 'hoge.html')
-
-
-@task
-def gen_abst_table(ctx):
-    at = AbstTable('data.csv')
-    at.gen_tables()

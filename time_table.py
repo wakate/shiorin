@@ -93,7 +93,7 @@ class TimeTable(Table):
                         elif j == 2:
                             cls = 'detail'
                         elif j == 3:
-                            cls = 'chairperson'
+                            cls = 'chairperson right_edge'
                         c = '<th class="%s">%s</th>' % (cls, cell)
                     elif j == 2:
                         c = '<td class="detail">%s</td>' % cell
@@ -112,9 +112,9 @@ class TimeTable(Table):
                             c = '<td rowspan="%d">%s</td>' % (counter[i], cell)
                     elif j == 3:
                         if counter[i] == 1:
-                            c = '<td class="chairperson">%s</td>' % cell
+                            c = '<td class="chairperson right_edge">%s</td>' % cell
                         else:
-                            c = '<td class="chairperson" rowspan="%d">%s</td>' % (counter[i], cell)
+                            c = '<td class="chairperson right_edge" rowspan="%d">%s</td>' % (counter[i], cell)
                     tmp.append(c)
                 table.append(tmp)
             tables.append(table)

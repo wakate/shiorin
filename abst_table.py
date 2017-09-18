@@ -1,7 +1,6 @@
 import csv
 from table import Table
 from jinja2 import Template
-from pprint import pprint
 
 
 class AbstTable(Table):
@@ -59,5 +58,19 @@ class AbstTable(Table):
             sheet = list(csv.reader(f))
 
         [headings, contents] = self.process_sheet(sheet)
+        tables = []
         for content in contents:
-            pprint(self.gen_rows(content))
+            rows = self.gen_rows(content)
+            rows.insert(0, ['氏名', 'タイトル', '概要'])
+            table = []
+            for i, row in enumerate(rows):
+                tmp_row = []
+                for j, cell in enumerate(row):
+                    if i <= 1:
+                        tmp_row.append(self.row_tag[i][j].render(c=cell))
+                    else:
+                        tmp_row.append(self.row_tag[1][j].render(c=cell))
+                table.append(tmp_row)
+            tables.append(table)
+
+        return [headings, tables]
