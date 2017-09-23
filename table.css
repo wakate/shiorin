@@ -7,6 +7,7 @@ section.table h3 {
 }
 
 table {
+    width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
     border-bottom: 2px solid #333;
