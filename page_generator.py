@@ -6,6 +6,11 @@ import os
 
 
 class PageGenerator:
+    def __init__(self, template_html, timetable_csv, output):
+        self.template = template_html
+        self.data = timetable_csv
+        self.page = output
+
     @staticmethod
     def md_converter(dirname):
         md = Markdown()
@@ -17,14 +22,14 @@ class PageGenerator:
 
         return htmls
 
-    def generate(self, template, page):
-        t = TimeTable('data.csv')
-        a = AbstTable('data.csv')
+    def generate(self):
+        t = TimeTable(self.data)
+        a = AbstTable(self.data)
         timetable_headings, timetables = t.gen_timetables()
         abst_headings, abst_tables = a.gen_tables()
 
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-        tmpl = env.get_template(template)
+        tmpl = env.get_template(self.template)
         v = {
             'timetables': timetables,
             'timetable_headings': timetable_headings,
@@ -32,5 +37,5 @@ class PageGenerator:
             'abst_tables': abst_tables,
             'info': self.md_converter('info')
         }
-        with open(page, 'w') as f:
+        with open(self.page, 'w') as f:
             f.write(tmpl.render(v))
