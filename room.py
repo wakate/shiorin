@@ -11,11 +11,15 @@ class Room:
 
         self.row_tag = [
             # header
-            Template('<th class="">{{ c }}</th>'),
-            Template('<th class="right_edge">{{ c }}</th>'),
+            [
+                Template('<th class="">{{ c }}</th>'),
+                Template('<th class="right_edge">{{ c }}</th>')
+            ],
             # body
-            Template('<td class="">{{ c }}</td>'),
-            Template('<td class="right_edge">{{ c }}</td>')
+            [
+                Template('<td class="">{{ c }}</td>'),
+                Template('<td class="right_edge">{{ c }}</td>')
+            ]
         ]
 
     def divide_sheet(self):
@@ -38,9 +42,9 @@ class Room:
             room = []
             for i, row in enumerate(content):
                 if i == len(content) - 1:
-                    room.append(self.row_tag[1].render({'c': row[0]}))
+                    room.append(self.row_tag[0][1].render({'c': row[0]}))
                 else:
-                    room.append(self.row_tag[0].render({'c': row[0]}))
+                    room.append(self.row_tag[0][0].render({'c': row[0]}))
 
             number_of_row = 0
             for row in content:
@@ -52,9 +56,9 @@ class Room:
                 table_row = []
                 for j, row in enumerate(content):
                     if j == len(content) - 1:
-                        table_row.append(self.row_tag[3].render({'c': row[i]}))
+                        table_row.append(self.row_tag[1][1].render({'c': row[i]}))
                     else:
-                        table_row.append(self.row_tag[2].render({'c': row[i]}))
+                        table_row.append(self.row_tag[1][0].render({'c': row[i]}))
                 table.append(table_row)
 
             table.insert(0, room)
