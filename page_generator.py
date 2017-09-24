@@ -26,7 +26,7 @@ class PageGenerator:
 
     def generate(self):
         data_dir = 'data'
-        t = TimeTable('%s/%s' % (data_dir, self.timetable_source_file())
+        t = TimeTable('%s/%s' % (data_dir, self.timetable_source_file))
         a = AbstTable('%s/%s' % (data_dir, self.timetable_source_file))
 
         timetable_headings, timetables = t.gen_timetables()
