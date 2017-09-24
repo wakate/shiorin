@@ -4,8 +4,9 @@ from jinja2 import Template
 
 
 class AbstTable(Table):
-    def __init__(self, csv_file):
-        self.data_file = csv_file
+    def __init__(self, source_file):
+        with open(source_file, newline='') as f:
+            self.timetable_sheet = list(csv.reader(f))
 
         self.row_structure = [
             [6],  # 氏名
@@ -54,10 +55,8 @@ class AbstTable(Table):
         return rows
 
     def gen_tables(self):
-        with open(self.data_file, newline='') as f:
-            sheet = list(csv.reader(f))
+        [headings, contents] = self.divide_sheet(self.timetable_sheet)
 
-        [headings, contents] = self.divide_sheet(sheet)
         tables = []
         for content in contents:
             rows = self.gen_rows(content)

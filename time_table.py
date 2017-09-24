@@ -3,8 +3,9 @@ from table import Table
 
 
 class TimeTable(Table):
-    def __init__(self, csv_file):
-        self.data_file = csv_file
+    def __init__(self, source_file):
+        with open(source_file, newline='') as f:
+            self.timetable_sheet = list(csv.reader(f))
 
     @staticmethod
     def join_cell(source, index):
@@ -69,10 +70,7 @@ class TimeTable(Table):
         return rows
 
     def gen_timetables(self):
-        with open(self.data_file, newline='') as f:
-            sheet = list(csv.reader(f))
-
-        [headings, contents] = self.divide_sheet(sheet)
+        [headings, contents] = self.divide_sheet(self.timetable_sheet)
 
         tables = []
         for content in contents:
