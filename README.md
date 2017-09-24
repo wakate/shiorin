@@ -52,7 +52,7 @@ git clone https://github.com/hnmx4/shiorin.git
 cd shiorin
 pip install invoke Jinja2 Markdown
 mv ***/template.html ./
-mv ***/data.csv ./
+mv ***/data ./
 mv ***/info ./
 ```
 
