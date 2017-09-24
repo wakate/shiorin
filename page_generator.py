@@ -25,14 +25,13 @@ class PageGenerator:
         return htmls
 
     def generate(self):
-        data_dir = 'data'
-        t = TimeTable('%s/%s' % (data_dir, self.timetable_source_file))
-        a = AbstTable('%s/%s' % (data_dir, self.timetable_source_file))
+        t = TimeTable(self.timetable_source_file)
+        a = AbstTable(self.timetable_source_file)
 
         timetable_headings, timetables = t.gen_timetables()
         abst_headings, abst_tables = a.gen_tables()
 
-        r = Room('%s/%s' % (data_dir, self.room_source_file))
+        r = Room(self.room_source_file)
         room_headings, room_tables = r.gen_room_table()
 
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))

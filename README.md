@@ -11,7 +11,9 @@
 ├── README.md
 ├── abst_table.py
 ├── common.css
-├── data.csv
+├── data
+│   ├── room.csv
+│   └── timetable.csv
 ├── index.html
 ├── info
 │   ├── 01_wifi.md
@@ -20,13 +22,13 @@
 │   ├── 04_contact_for_yamaki.md
 │   └── 05_contact_for_kanji.md
 ├── page_generator.py
+├── room.py
 ├── table.css
 ├── table.py
 ├── tasks.py
 ├── template.html
 ├── text.css
 └── time_table.py
-
 ```
 
 ## Installation
@@ -39,8 +41,9 @@
 
 - 足りないファイル
     - `template.html`
-    - `data.csv`
-    - `info`
+    - `data/timetable.csv`
+    - `data/room.csv`
+    - `info/***.md`
 
 ### インストール手順
 
