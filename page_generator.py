@@ -1,6 +1,7 @@
 from jinja2 import Environment, FileSystemLoader
 from time_table import TimeTable
 from abst_table import AbstTable
+from room import Room
 from markdown import Markdown
 import os
 
@@ -18,10 +19,14 @@ class PageGenerator:
         return htmls
 
     def generate(self, template, page):
-        t = TimeTable('data.csv')
-        a = AbstTable('data.csv')
+        data_dir = 'data'
+        t = TimeTable('%s/timetable.csv' % data_dir)
+        a = AbstTable('%s/timetable.csv' % data_dir)
         timetable_headings, timetables = t.gen_timetables()
         abst_headings, abst_tables = a.gen_tables()
+
+        r = Room('%s/room.csv' % data_dir)
+        room_headings, room_tables = r.gen_room_table()
 
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
         tmpl = env.get_template(template)
@@ -30,7 +35,9 @@ class PageGenerator:
             'timetable_headings': timetable_headings,
             'abst_headings': abst_headings,
             'abst_tables': abst_tables,
-            'info': self.md_converter('info')
+            'info': self.md_converter('info'),
+            'room_headings': room_headings,
+            'room_tables': room_tables
         }
         with open(page, 'w') as f:
             f.write(tmpl.render(v))
