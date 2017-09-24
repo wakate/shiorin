@@ -70,7 +70,7 @@ class TimeTable(Table):
         return rows
 
     def gen_timetables(self):
-        [headings, contents] = self.process_sheet(self.timetable_sheet)
+        [headings, contents] = self.divide_sheet(self.timetable_sheet)
 
         tables = []
         for content in contents:

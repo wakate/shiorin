@@ -55,7 +55,8 @@ class AbstTable(Table):
         return rows
 
     def gen_tables(self):
-        [headings, contents] = self.process_sheet(self.timetable_sheet)
+        [headings, contents] = self.divide_sheet(self.timetable_sheet)
+
         tables = []
         for content in contents:
             rows = self.gen_rows(content)

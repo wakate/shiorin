@@ -1,6 +1,6 @@
 class Table:
     @staticmethod
-    def process_sheet(sheet):
+    def divide_sheet(sheet):
         headings = []
         sep = []
         for i, row in enumerate(sheet):
