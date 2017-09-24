@@ -12,7 +12,7 @@ table {
     border-bottom: 2px solid #333;
 }
 
-table#timetable, table#abst_table{
+table#timetable, table#abst_table {
     width: 100%;
 }
 
@@ -34,10 +34,14 @@ table#timetable, table#abst_table{
     border-bottom: 4px solid #333;
 }
 
-#room td{
+#room td {
     padding: 0.5em;
     border-bottom: 1px dashed #333;
     border-right: 1px solid #333;
+}
+
+td.right_edge, th.right_edge {
+    border-right: 0 !important;
 }
 
 td.detail {
@@ -58,10 +62,6 @@ th.detail {
 
 th.chairperson {
     width: 10%
-}
-
-td.right_edge, th.right_edge {
-    border-right: 0;
 }
 
 th.name {
