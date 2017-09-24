@@ -7,9 +7,9 @@ import os
 
 class PageGenerator:
     def __init__(self, template_html, timetable_csv, output):
-        self.template = template_html
-        self.data = timetable_csv
-        self.page = output
+        self.template_html = template_html
+        self.timetable_source_file = timetable_csv
+        self.page_html = output
 
     @staticmethod
     def md_converter(dirname):
@@ -23,13 +23,13 @@ class PageGenerator:
         return htmls
 
     def generate(self):
-        t = TimeTable(self.data)
-        a = AbstTable(self.data)
+        t = TimeTable(self.timetable_source_file)
+        a = AbstTable(self.timetable_source_file)
         timetable_headings, timetables = t.gen_timetables()
         abst_headings, abst_tables = a.gen_tables()
 
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-        tmpl = env.get_template(self.template)
+        tmpl = env.get_template(self.template_html)
         v = {
             'timetables': timetables,
             'timetable_headings': timetable_headings,
@@ -37,5 +37,5 @@ class PageGenerator:
             'abst_tables': abst_tables,
             'info': self.md_converter('info')
         }
-        with open(self.page, 'w') as f:
+        with open(self.page_html, 'w') as f:
             f.write(tmpl.render(v))
