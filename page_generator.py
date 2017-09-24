@@ -18,8 +18,9 @@ class PageGenerator:
         return htmls
 
     def generate(self, template, page):
-        t = TimeTable('data.csv')
-        a = AbstTable('data.csv')
+        data_dir = 'data'
+        t = TimeTable('%s/timetable.csv' % data_dir)
+        a = AbstTable('%s/timetable.csv' % data_dir)
         timetable_headings, timetables = t.gen_timetables()
         abst_headings, abst_tables = a.gen_tables()
 
