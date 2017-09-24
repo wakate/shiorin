@@ -72,7 +72,7 @@ class TimeTable(Table):
         with open(self.data_file, newline='') as f:
             sheet = list(csv.reader(f))
 
-        [headings, contents] = self.process_sheet(sheet)
+        [headings, contents] = self.divide_sheet(sheet)
 
         tables = []
         for content in contents:
