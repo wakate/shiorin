@@ -1,0 +1,14 @@
+#sponser img {
+    width: 200px;
+}
+
+#sponser ul {
+    padding: 0;
+}
+
+#sponser li {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 49%;
+    padding: 0.5em 0;
+}
