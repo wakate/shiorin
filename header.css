@@ -1,3 +1,11 @@
+header .sub-text {
+    color: #5882bc;
+}
+
+#titles {
+    margin: 4em 0;
+}
+
 #sponser img {
     width: 200px;
 }
