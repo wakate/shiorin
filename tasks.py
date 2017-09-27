@@ -5,10 +5,10 @@ from page_generator import PageGenerator
 @task
 def gen_web(ctx):
     pg = PageGenerator(
-        'template.html',
+        'web_template.html',
         'data/timetable.csv',
         'data/room.csv',
         'data/sponsor.json',
-        'index.html'
+        'web/index.html'
     )
     pg.generate()
