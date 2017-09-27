@@ -1,0 +1,29 @@
+h1 {
+    font-size: 3em;
+    margin-top: 2em;
+    margin-bottom: 0.3em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #5882bc;
+}
+
+header .sub-text {
+    color: #5882bc;
+}
+
+header .bottom {
+    font-size: 1.5em
+}
+
+table.sponsor {
+    width: 100%;
+    table-layout: fixed;
+    border: 0;
+}
+
+table.sponsor img {
+    width: 100%;
+}
+
+section.sponsor {
+    margin-top: 1em;
+}

@@ -12,35 +12,36 @@ table {
     border-bottom: 2px solid #333;
 }
 
-table#timetable, table#abst_table {
+table.timetable {
+    width: 100%;
     width: 100%;
 }
 
-#timetable th, #abst_table th {
+.timetable th {
     border-bottom: 4px solid #333;
     border-right: 2px solid #333;
     padding: 0.5em;
 }
 
-#timetable td, #abst_table td {
+.timetable td {
     border-bottom: 1px dashed #333;
     border-right: 2px solid #333;
 }
 
-#room th {
+.room th {
     width: 120px;
     padding: 0.5em;
     border-right: 1px solid #333;
     border-bottom: 4px solid #333;
 }
 
-#room td {
+.room td {
     padding: 0.5em;
     border-bottom: 1px dashed #333;
     border-right: 1px solid #333;
 }
 
-td.right_edge, th.right_edge {
+.right_edge {
     border-right: 0 !important;
 }
 
