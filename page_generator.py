@@ -18,10 +18,10 @@ class PageGenerator:
     @staticmethod
     def md_converter(dirname):
         md = Markdown()
-        files = os.listdir(dirname)
+        files = os.listdir('md/%s' % dirname)
         htmls = []
         for file in files:
-            with open('%s/%s' % (dirname, file), 'r') as f:
+            with open('md/%s/%s' % (dirname, file), 'r') as f:
                 htmls.append(md.convert(f.read()))
 
         return htmls
@@ -59,7 +59,8 @@ class PageGenerator:
             'info': self.md_converter('info'),
             'room_headings': room_headings,
             'room_tables': room_tables,
-            'sponsor': sponsor
+            'sponsor': sponsor,
+            'ryokan': self.md_converter('ryokan')
         }
         with open(self.page_html, 'w') as f:
             f.write(tmpl.render(v))
