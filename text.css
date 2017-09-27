@@ -11,3 +11,7 @@ code {
     font-size: 1.1em;
     font-weight: bold;
 }
+
+section.text img {
+    width: 100%;
+}
