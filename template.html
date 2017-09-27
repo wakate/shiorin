@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>しおり</title>
+
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <link rel="stylesheet" type="text/css" href="table.css">
+    <link rel="stylesheet" type="text/css" href="text.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+</head>
+<body>
+
+<headed>
+    <div class="container">
+        <header>
+            <div id="titles">
+                <span class="sub-text top">一般社団法人　情報処理学会　プログラミングシンポジウム委員会</span>
+                <h1>第50回情報科学若手の会</h1>
+                <span class="sub-text bottom">2017年10月7日 ~ 2017年10月8日</span>
+            </div>
+
+            <section>
+                <h3>協賛</h3>
+                <table class="sponsor">
+                    {% for row in sponsor %}
+                    <tr align="center">{% for cell in row %}
+                        {{ cell }}{% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </section>
+        </header>
+    </div>
+</headed>
+
+<div id="contents">
+    <div class="container">
+        <h2>タイムテーブル</h2>
+        {% for table in timetables %}
+        <section class="table">
+            <h3>{{ timetable_headings[loop.index - 1] }}</h3>
+            <table class="timetable">
+                {% for row in table %}
+                <tr align="center">{% for cell in row %}
+                    {{ cell }}{% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <h2>発表概要</h2>
+        {% for table in abst_tables %}
+        <section class="table">
+            <h3>{{ abst_headings[loop.index -1] }}</h3>
+            <table class="timetable">
+                {% for row in table %}
+                <tr align="center">{% for cell in row %}
+                    {{ cell }}{% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+        {% endfor %}
+    </div>
+
+    {% for section in info %}
+    <div class="container">
+        <section class="text">
+            {{ section }}
+        </section>
+    </div>
+    {% endfor %}
+
+    <div class="container">
+        <h2>部屋割り</h2>
+        {% for table in room_tables %}
+        <section class="table">
+            <h3>{{ room_headings[loop.index -1] }}</h3>
+            <table class="room">
+                {% for row in table %}
+                <tr align="center">{% for cell in row %}
+                    {{ cell }}{% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+        {% endfor %}
+    </div>
+
+</div>
+</body>
+</html>
