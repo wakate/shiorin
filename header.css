@@ -6,17 +6,12 @@ header .sub-text {
     margin: 4em 0;
 }
 
-#sponser img {
-    width: 200px;
+table.sponsor {
+    width: 100%;
+    table-layout: fixed;
+    border: 0;
 }
 
-#sponser ul {
-    padding: 0;
-}
-
-#sponser li {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 49%;
-    padding: 0.5em 0;
+table.sponsor img {
+    width: 100%;
 }
