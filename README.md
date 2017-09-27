@@ -10,25 +10,32 @@
 .
 ├── README.md
 ├── abst_table.py
-├── common.css
 ├── data
 │   ├── room.csv
+│   ├── sponsor.json
 │   └── timetable.csv
-├── index.html
-├── info
-│   ├── 01_wifi.md
-│   ├── 02_twitter.md
-│   ├── 03_access.md
-│   ├── 04_contact_for_yamaki.md
-│   └── 05_contact_for_kanji.md
+├── md
+│   ├── info
+│   │   └── 0X_***.md
+│   └── ryokan
+│       └── 0X_***.md
 ├── page_generator.py
 ├── room.py
-├── table.css
 ├── table.py
 ├── tasks.py
-├── template.html
-├── text.css
-└── time_table.py
+├── time_table.py
+├── web
+│   ├── css
+│   │   ├── common.css
+│   │   ├── header.css
+│   │   ├── table.css
+│   │   └── text.css
+│   ├── image
+│   │   └── ***.png
+│   ├── index.html
+│   └── logo
+│       └── ***.png
+└── web_template.html
 ```
 
 ## Installation
@@ -39,11 +46,12 @@
     - [python 3.6.1](https://www.python.org/downloads/)
     - [pip 9.0.1](https://pip.pypa.io/en/stable/installing/)
 
-- 足りないファイル
-    - `template.html`
-    - `data/timetable.csv`
-    - `data/room.csv`
-    - `info/***.md`
+- 足りないファイル/ディレクトリ
+    - `data/`
+    - `md/info/`
+    - `md/ryokan/`
+    - `web/image/`
+    - `web/logo/`
 
 ### インストール手順
 
@@ -51,9 +59,10 @@
 git clone https://github.com/hnmx4/shiorin.git
 cd shiorin
 pip install invoke Jinja2 Markdown
-mv ***/template.html ./
 mv ***/data ./
-mv ***/info ./
+mv ***/md ./
+mv ***/web/image ./web/
+mv ***/web/logo ./web/
 ```
 
 ## 使い方
