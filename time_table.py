@@ -1,5 +1,6 @@
 import csv
 from table import Table
+from pprint import pprint
 
 
 class TimeTable(Table):
@@ -14,7 +15,7 @@ class TimeTable(Table):
             for i in index:
                 if source[i] != '':
                     dst.append(source[i])
-            return '<br>~</br>'.join(dst)
+            return '<br>~<br>'.join(dst)
         elif 6 in index:
             if source[6] != '':
                 dst.append("<b>%s</b>" % source[8])
@@ -29,8 +30,8 @@ class TimeTable(Table):
             return '/'.join(dst)
 
     @staticmethod
-    def count_session(cells):
-        program = list(map(lambda v: v[1], cells))
+    def count_session(rows):
+        program = list(map(lambda v: v[1], rows))
         find_flag = -1
         flaged_index = -1
         counter = []
@@ -69,7 +70,7 @@ class TimeTable(Table):
 
         return rows
 
-    def gen_timetables(self):
+    def gen_tables(self):
         [headings, contents] = self.divide_sheet(self.timetable_sheet)
 
         tables = []
@@ -117,3 +118,29 @@ class TimeTable(Table):
                 table.append(tmp)
             tables.append(table)
         return [headings, tables]
+
+    def gen_paper_table(self):
+        headings, contents = self.divide_sheet(self.timetable_sheet)
+
+        sections = []
+        for content in contents:
+            rows = self.gen_rows(content)
+            counter = self.count_session(rows)
+
+            section = []
+            for i, row in enumerate(rows):
+                tmp = {}
+                if counter[i] == 1:
+                    tmp['header'] = '%s　　%s' % (row[0].replace('<br>', ' '), row[1])
+                    tmp['detail'] = []
+                elif counter[i] > 1:
+                    tmp['header'] = '%s ~ %s　　%s' % (content[i][0], content[i + counter[i] - 1][1], row[1])
+                    d = []
+                    for adder in range(counter[i]):
+                        d.append(rows[i + adder][2].replace('<b>', ' ').replace('</b>', ' '))
+                    tmp['detail'] = d
+                else:
+                    continue
+                section.append(tmp)
+            sections.append(section)
+        return headings, sections
