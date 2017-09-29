@@ -7,13 +7,12 @@ import json
 import os
 
 
-class PageGenerator:
-    def __init__(self, template_html, timetable_csv, room_csv, sponsor_json, output):
+class ShioriGenerator:
+    def __init__(self, template_html, timetable_csv, room_csv, sponsor_json):
         self.template_html = template_html
         self.timetable_source_file = timetable_csv
         self.room_source_file = room_csv
         self.sponsor_source_file = sponsor_json
-        self.page_html = output
 
     @staticmethod
     def md_converter(dirname):
@@ -37,7 +36,7 @@ class PageGenerator:
 
         return sponsor
 
-    def generate(self):
+    def generate_web(self, output):
         t = TimeTable(self.timetable_source_file)
         timetable_headings, timetables = t.gen_timetables()
 
@@ -62,5 +61,5 @@ class PageGenerator:
             'sponsor': sponsor,
             'ryokan': self.md_converter('ryokan')
         }
-        with open(self.page_html, 'w') as f:
+        with open(output, 'w') as f:
             f.write(tmpl.render(v))

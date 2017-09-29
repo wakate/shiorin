@@ -1,14 +1,13 @@
 from invoke import task
-from page_generator import PageGenerator
+from shiori_generator import ShioriGenerator
 
 
 @task
 def gen_web(ctx):
-    pg = PageGenerator(
+    sg = ShioriGenerator(
         'web_template.html',
         'data/timetable.csv',
         'data/room.csv',
         'data/sponsor.json',
-        'web/index.html'
     )
-    pg.generate()
+    sg.generate_web('web/index.html')
