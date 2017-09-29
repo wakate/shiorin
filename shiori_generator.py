@@ -43,7 +43,7 @@ class ShioriGenerator:
         abst_headings, abst_tables = a.gen_tables()
 
         r = Room(self.room_source_file)
-        room_headings, room_tables = r.gen_room_table()
+        room_headings, room_tables = r.gen_room_table_t()
 
         sponsor = self.gen_sponsor_table(self.sponsor_source_file)
 
