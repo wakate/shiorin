@@ -40,7 +40,7 @@
     <div class="container">
         <h2>タイムテーブル</h2>
         {% for section in timetables %}
-        <section>
+        <section class="timetable">
             <h3>{{ timetable_headings[loop.index -1] }}</h3>
             {% for row in section %}
             <p class="session_header">{{ row['header'] }}</p>

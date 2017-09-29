@@ -10,3 +10,17 @@ table.room td {
 table.room td.left {
     width: 60px;
 }
+
+p.session_header {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+p.session_detail {
+    margin: 0 0em 0.5em 1em;
+}
+
+section.timetable {
+    margin-bottom: 3em;
+}
