@@ -11,31 +11,15 @@
 ├── README.md
 ├── abst_table.py
 ├── data
-│   ├── room.csv
-│   ├── sponsor.json
-│   └── timetable.csv
 ├── md
-│   ├── info
-│   │   └── 0X_***.md
-│   └── ryokan
-│       └── 0X_***.md
-├── page_generator.py
+├── paper
 ├── room.py
+├── shiori_generator.py
 ├── table.py
 ├── tasks.py
+├── templates
 ├── time_table.py
-├── web
-│   ├── css
-│   │   ├── common.css
-│   │   ├── header.css
-│   │   ├── table.css
-│   │   └── text.css
-│   ├── image
-│   │   └── ***.png
-│   ├── index.html
-│   └── logo
-│       └── ***.png
-└── web_template.html
+└── web
 ```
 
 ## Installation
@@ -46,12 +30,15 @@
     - [python 3.6.1](https://www.python.org/downloads/)
     - [pip 9.0.1](https://pip.pypa.io/en/stable/installing/)
 
-- 足りないファイル/ディレクトリ
-    - `data/`
-    - `md/info/`
-    - `md/ryokan/`
-    - `web/image/`
-    - `web/logo/`
+- 足りないディレクトリ
+  
+  次のディレクトリとファイルを入手して、適切に配置してください。
+    - `data`
+    - `md`
+    - `web/image`
+    - `web/logo`
+    - `paper/image`
+    - `paper/logo`
 
 ### インストール手順
 
@@ -63,10 +50,20 @@ mv ***/data ./
 mv ***/md ./
 mv ***/web/image ./web/
 mv ***/web/logo ./web/
+mv ***/paper/image ./paper/
+mv ***/paper/logo ./paper/
 ```
 
 ## 使い方
 
 ```
+## generate web_shiori
 invoke gen_web
+ls web
+css        image      index.html logo
+
+## generate paper_shiori
+invoke gen_paper
+ls paper
+cover.html     css            image          info.html      logo           room.html      ryokan.html    timetable.html
 ```
