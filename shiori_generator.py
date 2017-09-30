@@ -54,7 +54,7 @@ class ShioriGenerator:
         ]
         return sponsor
 
-    def generate_web(self, template, output):
+    def generate_web(self, template, dst):
         t = TimeTable(self.timetable_source_file)
         timetable_headings, timetables = t.gen_tables()
 
@@ -77,25 +77,38 @@ class ShioriGenerator:
             'sponsor': self.gen_sponsor_table(self.sponsor_source_file),
             'ryokan': self.md_converter('ryokan')
         }
-        with open(output, 'w') as f:
+        with open(dst, 'w') as f:
             f.write(tmpl.render(v))
 
-    def generate_paper(self, template, output):
+    def generate_paper(self, templates, dst_dir):
         t = TimeTable(self.timetable_source_file)
         timetable_headings, timetables = t.gen_paper_table()
 
         r = Room(self.room_source_file)
         room_headings, room_tables = r.gen_room_table()
 
-        env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-        tmpl = env.get_template(template)
         v = {
-            'timetable_headings': timetable_headings,
-            'timetables': timetables,
-            'room_headings': room_headings,
-            'room_tables': room_tables,
-            'sponsor': self.gen_sponsor_table_2(self.sponsor_source_file),
-            'info': self.md_converter('paper_info')
+            'cover': {
+                'sponsor': self.gen_sponsor_table_2(self.sponsor_source_file),
+            },
+            'timetable': {
+                'timetable_headings': timetable_headings,
+                'timetables': timetables,
+            },
+            'room': {
+
+                'room_headings': room_headings,
+                'room_tables': room_tables,
+            },
+            'ryokan': {
+                'ryokan': self.md_converter('paper_ryokan')
+            },
+            'info': {
+                'info': self.md_converter('paper_info')
+            }
         }
-        with open(output, 'w') as f:
-            f.write(tmpl.render(v))
+        env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
+        for page_name in list(templates.keys()):
+            tmpl = env.get_template(templates[page_name])
+            with open(os.path.join(dst_dir, page_name + '.html'), 'w') as f:
+                f.write(tmpl.render(v[page_name]))

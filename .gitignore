@@ -1,9 +1,9 @@
 index.html
 data
-md/info
-md/ryokan
-md/paper_info
+md/*
 web/image
 web/logo
+web/*.html
 paper/image
 paper/logo
+paper/*.html

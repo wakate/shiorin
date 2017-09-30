@@ -133,6 +133,8 @@ class TimeTable(Table):
                 if counter[i] == 1:
                     tmp['header'] = '%s　　%s' % (row[0].replace('<br>', ' '), row[1])
                     tmp['detail'] = []
+                    if row[2] != '':
+                        tmp['detail'].append(row[2].replace('<b>', ' '.replace('</b>', ' ')))
                 elif counter[i] > 1:
                     tmp['header'] = '%s ~ %s　　%s' % (content[i][0], content[i + counter[i] - 1][1], row[1])
                     d = []
