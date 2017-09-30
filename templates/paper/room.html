@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>しおり</title>
+
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+</head>
+<body>
+
+<div id="contents">
+    <div class="container">
+        <h2>部屋割り</h2>
+        {% for table in room_tables %}
+        <section class="table">
+            <h3>{{ room_headings[loop.index -1] }}</h3>
+            <table class="room">
+                {% for row in table %}
+                <tr>{% for cell in row %}
+                    {{ cell }}{% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

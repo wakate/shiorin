@@ -1,0 +1,17 @@
+section.text p {
+    padding-left: 1.5em;
+    margin: 0 0 1em 0;
+}
+
+code {
+    padding: 2px 3px;
+    font-family: 'Inconsolata', monospace, sans-serif;
+    color: #5882bc;
+    background: #f7f7f7;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+section.text img {
+    width: 100%;
+}

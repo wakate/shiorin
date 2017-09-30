@@ -12,13 +12,15 @@ class Room:
         self.row_tag = [
             # header
             [
-                Template('<th class="">{{ c }}</th>'),
+                Template('<th>{{ c }}</th>'),
                 Template('<th class="right_edge">{{ c }}</th>')
             ],
             # body
             [
-                Template('<td class="">{{ c }}</td>'),
-                Template('<td class="right_edge">{{ c }}</td>')
+                Template('<td>{{ c }}</td>'),
+                Template('<td class="right_edge">{{ c }}</td>'),
+                Template('<td class="left">{{ c }}</td>'),
+                Template('<td class="right">{{ c }}</td>')
             ]
         ]
 
@@ -34,7 +36,7 @@ class Room:
 
         return contents_each_area
 
-    def gen_room_table(self):
+    def gen_room_table_t(self):
         contents = self.divide_sheet()
 
         tables = []
@@ -64,4 +66,20 @@ class Room:
             table.insert(0, room)
             tables.append(table)
 
+        return list(contents.keys()), tables
+
+    def gen_room_table(self):
+        contents = self.divide_sheet()
+
+        tables = []
+        for head, content in contents.items():
+            table = []
+            for row in content:
+                table_row = [self.row_tag[1][2].render({'c': row[0]})]
+                attendances = []
+                for i in range(4, 4 + int(row[11])):
+                    attendances.append(row[i])
+                table_row.append(self.row_tag[1][3].render({'c': ', '.join(attendances)}))
+                table.append(table_row)
+            tables.append(table)
         return list(contents.keys()), tables

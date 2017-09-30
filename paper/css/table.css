@@ -1,0 +1,26 @@
+table.room {
+    border: 2px solid #333;
+}
+
+table.room td {
+    border: 2px solid #333;
+    padding: 0.5em;
+}
+
+table.room td.left {
+    width: 60px;
+}
+
+p.session_header {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+p.session_detail {
+    margin: 0 0 1em 1em;
+}
+
+section.timetable {
+    margin-bottom: 3em;
+}
