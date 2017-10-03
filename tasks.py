@@ -9,6 +9,7 @@ def gen_web(ctx):
         'data/timetable.csv',
         'data/room.csv',
         'data/sponsor.json',
+        'data/participant.csv'
     )
     sg.generate_web('templates/web/template.html', 'web/index.html')
 
@@ -19,6 +20,7 @@ def gen_paper(ctx):
         'data/timetable.csv',
         'data/room.csv',
         'data/sponsor.json',
+        'data/participant.csv'
     )
     templates_dir = os.path.join('templates', 'paper')
     templates = {

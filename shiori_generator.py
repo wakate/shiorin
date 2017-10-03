@@ -2,16 +2,18 @@ from jinja2 import Environment, FileSystemLoader
 from time_table import TimeTable
 from abst_table import AbstTable
 from room import Room
+from participant import Participant
 from markdown import Markdown
 import json
 import os
 
 
 class ShioriGenerator:
-    def __init__(self, timetable_csv, room_csv, sponsor_json):
+    def __init__(self, timetable_csv, room_csv, sponsor_json, participant_csv):
         self.timetable_source_file = timetable_csv
         self.room_source_file = room_csv
         self.sponsor_source_file = sponsor_json
+        self.participant_source_file = participant_csv
 
     @staticmethod
     def md_converter(dirname):
@@ -55,14 +57,9 @@ class ShioriGenerator:
         return sponsor
 
     def generate_web(self, template, dst):
-        t = TimeTable(self.timetable_source_file)
-        timetable_headings, timetables = t.gen_tables()
-
-        a = AbstTable(self.timetable_source_file)
-        abst_headings, abst_tables = a.gen_tables()
-
-        r = Room(self.room_source_file)
-        room_headings, room_tables = r.gen_room_table_t()
+        timetable_headings, timetables = TimeTable(self.timetable_source_file).gen_tables()
+        abst_headings, abst_tables = AbstTable(self.timetable_source_file).gen_tables()
+        room_headings, room_tables = Room(self.room_source_file).gen_room_table_t()
 
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
         tmpl = env.get_template(template)
@@ -75,7 +72,8 @@ class ShioriGenerator:
             'room_headings': room_headings,
             'room_tables': room_tables,
             'sponsor': self.gen_sponsor_table(self.sponsor_source_file),
-            'ryokan': self.md_converter('ryokan')
+            'ryokan': self.md_converter('ryokan'),
+            'participant_table': Participant(self.participant_source_file).gen_table()
         }
         with open(dst, 'w') as f:
             f.write(tmpl.render(v))
