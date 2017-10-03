@@ -102,9 +102,9 @@
     <div class="container">
         <h2>参加者一覧</h2>
         <section class="table">
-            <table class="room">
+            <table class="participant room">
                 {% for row in participant_table %}
-                <tr align="center">{% for cell in row %}
+                <tr>{% for cell in row %}
                     {{ cell }}{% endfor %}
                 </tr>
                 {% endfor %}
