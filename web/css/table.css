@@ -14,7 +14,10 @@ table {
 
 table.timetable {
     width: 100%;
-    width: 100%;
+}
+
+table.participant td {
+    height: 46px;
 }
 
 .timetable th {
@@ -45,8 +48,12 @@ table.timetable {
     border-right: 0 !important;
 }
 
-td.detail {
+td.detail, td.title {
     padding: 0 4px;
+}
+
+td.name {
+    padding: 0 1em;
 }
 
 th.time {
@@ -71,4 +78,8 @@ th.name {
 
 th.title {
     width: 25%;
+}
+
+th.role {
+    width: 18%;
 }

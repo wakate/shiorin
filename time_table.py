@@ -1,6 +1,5 @@
 import csv
 from table import Table
-from pprint import pprint
 
 
 class TimeTable(Table):
