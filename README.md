@@ -58,12 +58,12 @@ mv ***/paper/logo ./paper/
 
 ```
 ## generate web_shiori
-invoke gen_web
+invoke gen-web
 ls web
 css        image      index.html logo
 
 ## generate paper_shiori
-invoke gen_paper
+invoke gen-paper
 ls paper
 cover.html     css            image          info.html      logo           room.html      ryokan.html    timetable.html
 ```
