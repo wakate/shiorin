@@ -31,7 +31,7 @@
     - [pip 9.0.1](https://pip.pypa.io/en/stable/installing/)
 
 - 足りないディレクトリ
-  
+
   次のディレクトリとファイルを入手して、適切に配置してください。
     - `data`
     - `md`
