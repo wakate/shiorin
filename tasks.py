@@ -32,11 +32,16 @@ def gen_paper(ctx):
     }
     sg.generate_paper(templates, 'paper')
 
+# c.f. https://github.com/miyakogi/pyppeteer#usage
 async def print_page():
-    index_path = os.path.join(os.getcwd(), './web/index.html')
+    shiori_path = 'file://' + os.path.join(os.getcwd(), './web/index.html')
     browser = await launch()
     page = await browser.newPage()
-    await page.goto('file://' + index_path, { 'waitUntil': 'networkidle0' })
+
+    # networkidle0 オプションを付けないとgfontsロード途中で
+    # PDF化してしまうため、真っ白なPDFが生成される
+    await page.goto(shiori_path, { 'waitUntil': 'networkidle0' })
+
     await page.pdf({'path': 'shiori.pdf'})
     await browser.close()
 
