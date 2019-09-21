@@ -44,7 +44,7 @@
 ### インストール手順
 
 ```
-git clone https://github.com/hnmx4/shiorin.git
+git clone https://github.com/wakate/shiorin.git
 cd shiorin
 pip install -r requirements.txt
 mv ***/data ./
