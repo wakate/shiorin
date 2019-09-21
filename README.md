@@ -29,7 +29,7 @@
 - 実行環境
     - [python 3.6.8](https://www.python.org/downloads/)
     - [pip 19.2.3](https://pip.pypa.io/en/stable/installing/)
-    - wkhtmlpdf
+    - 日本語フォント(ex. fonts-ipafont-gothic fonts-ipafont-mincho)
 
 - 足りないディレクトリ
 
@@ -47,6 +47,7 @@
 git clone https://github.com/wakate/shiorin.git
 cd shiorin
 pip install -r requirements.txt
+pyppeteer-install
 mv ***/data ./
 mv ***/md ./
 mv ***/web/image ./web/
@@ -58,8 +59,8 @@ mv ***/paper/logo ./paper/
 ## 使い方
 
 ```
-$ invoke gen-web # generate web_shiori
-$ ls web
+invoke gen-web # generate web_shiori
+ls web
 css        image      index.html logo
 
 $ invoke gen-paper # generate paper_shiori

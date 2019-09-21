@@ -1,11 +1,10 @@
+import asyncio
 import os
 
 from invoke import task
-
-import pdfkit
+from pyppeteer import launch
 
 from shiori_generator import ShioriGenerator
-
 
 @task
 def gen_web(ctx):
@@ -15,7 +14,6 @@ def gen_web(ctx):
         'data/sponsor.json',
     )
     sg.generate_web('templates/web/template.html', 'web/index.html')
-
 
 @task
 def gen_paper(ctx):
@@ -34,7 +32,14 @@ def gen_paper(ctx):
     }
     sg.generate_paper(templates, 'paper')
 
+async def print_page():
+    index_path = os.path.join(os.getcwd(), './web/index.html')
+    browser = await launch()
+    page = await browser.newPage()
+    await page.goto('file://' + index_path, { 'waitUntil': 'networkidle0' })
+    await page.pdf({'path': 'shiori.pdf'})
+    await browser.close()
+
 @task
 def gen_pdf(c):
-    with open('web/index.html') as f:
-        pdfkit.from_file(f, 'hoge.pdf')
+    asyncio.get_event_loop().run_until_complete(print_page())
