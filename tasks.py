@@ -1,6 +1,10 @@
-from invoke import task
-from shiori_generator import ShioriGenerator
 import os
+
+from invoke import task
+
+import pdfkit
+
+from shiori_generator import ShioriGenerator
 
 
 @task
@@ -9,7 +13,6 @@ def gen_web(ctx):
         'data/timetable.csv',
         'data/room.csv',
         'data/sponsor.json',
-        'data/participant.csv'
     )
     sg.generate_web('templates/web/template.html', 'web/index.html')
 
@@ -20,7 +23,6 @@ def gen_paper(ctx):
         'data/timetable.csv',
         'data/room.csv',
         'data/sponsor.json',
-        'data/participant.csv'
     )
     templates_dir = os.path.join('templates', 'paper')
     templates = {
@@ -31,3 +33,8 @@ def gen_paper(ctx):
         'info': os.path.join(templates_dir, 'info.html')
     }
     sg.generate_paper(templates, 'paper')
+
+@task
+def gen_pdf(c):
+    with open('web/index.html') as f:
+        pdfkit.from_file(f, 'hoge.pdf')

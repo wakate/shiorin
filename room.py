@@ -25,22 +25,24 @@ class Room:
         ]
 
     def divide_sheet(self):
-        contents_each_area = {}
+        contents_each_area = []
+        heads = []
         for row in self.room_sheet:
             if row[0] == '':
                 continue
-            elif row[3] in contents_each_area:
-                contents_each_area[row[3]].append(row)
+            elif row[3] in heads:
+                contents_each_area[heads.index(row[3])].append(row)
             else:
-                contents_each_area[row[3]] = [row]
+                heads.append(row[3])
+                contents_each_area.append([row])
 
-        return contents_each_area
+        return heads, contents_each_area
 
     def gen_room_table_t(self):
-        contents = self.divide_sheet()
+        heads, contents = self.divide_sheet()
 
         tables = []
-        for head, content in contents.items():
+        for content in contents:
             room = []
             for i, row in enumerate(content):
                 if i == len(content) - 1:
@@ -66,13 +68,13 @@ class Room:
             table.insert(0, room)
             tables.append(table)
 
-        return list(contents.keys()), tables
+        return heads, tables
 
     def gen_room_table(self):
-        contents = self.divide_sheet()
+        heads, contents = self.divide_sheet()
 
         tables = []
-        for head, content in contents.items():
+        for content in contents:
             table = []
             for row in content:
                 table_row = [self.row_tag[1][2].render({'c': row[0]})]
@@ -82,4 +84,4 @@ class Room:
                 table_row.append(self.row_tag[1][3].render({'c': ', '.join(attendances)}))
                 table.append(table_row)
             tables.append(table)
-        return list(contents.keys()), tables
+        return heads, tables
