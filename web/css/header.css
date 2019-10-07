@@ -19,9 +19,8 @@ table.sponsor {
     table-layout: fixed;
     border: 0;
 }
-
-table.sponsor img {
-    width: 100%;
+table.sponsor td img{
+    height: 120px;
 }
 
 section.sponsor {
