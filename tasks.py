@@ -42,7 +42,7 @@ async def print_page():
     # PDF化してしまうため、真っ白なPDFが生成される
     await page.goto(shiori_path, { 'waitUntil': 'networkidle0' })
 
-    await page.pdf({'path': 'shiori.pdf'})
+    await page.pdf({'path': 'shiori.pdf' })
     await browser.close()
 
 @task

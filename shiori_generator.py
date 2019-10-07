@@ -23,6 +23,9 @@ class ShioriGenerator:
         files = os.listdir('md/%s' % dirname)
         htmls = []
         for file in files:
+            if not file.endswith(".md"):
+                continue
+
             with open('md/%s/%s' % (dirname, file), 'r') as f:
                 htmls.append(md.convert(f.read()))
 
@@ -74,7 +77,7 @@ class ShioriGenerator:
             'room_headings': room_headings,
             'room_tables': room_tables,
             'normal_sponsor': self.gen_sponsor_table(self.normal_sponsor),
-            'party_sponsor': self.gen_sponsor_table(self.party_sponsor),
+            #'party_sponsor': self.gen_sponsor_table(self.party_sponsor),
             'ryokan': self.md_converter('ryokan')
         }
         with open(dst, 'w') as f:

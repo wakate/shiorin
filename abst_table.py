@@ -21,7 +21,7 @@ class AbstTable(Table):
         }
         self.row_looks = [
             Template('{{ name }}'),
-            Template('{{ title }} [{{ type }}]'),
+            Template('{{ title }}<br>[{{ type }}]'),
             Template('{{ detail }}')
         ]
         self.row_tag = [

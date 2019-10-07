@@ -72,3 +72,15 @@ th.name {
 th.title {
     width: 25%;
 }
+
+@media print {
+  /*td.detail.right_edge {
+      font-size: 70%;
+  }*/
+  .container {
+    break-inside: avoid;
+  }
+  section.table {
+    break-inside: avoid;
+  }
+}
