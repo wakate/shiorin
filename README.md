@@ -63,7 +63,7 @@ invoke gen-web # generate web_shiori
 ls web
 css        image      index.html logo
 
-$ invoke gen-paper # generate paper_shiori
-$ ls paper
+invoke gen-paper # generate paper_shiori
+ls paper
 cover.html     css            image          info.html      logo           room.html      ryokan.html    timetable.html
 ```
