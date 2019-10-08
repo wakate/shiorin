@@ -59,11 +59,12 @@ mv ***/paper/logo ./paper/
 ## 使い方
 
 ```
-invoke gen-web # generate web_shiori
-ls web
+$ invoke gen-web # generate web_shiori
+$ ls web
 css        image      index.html logo
-
-invoke gen-paper # generate paper_shiori
-ls paper
+$ invoke gen-web-pdf # generate pdf from web_shiori
+$ invoke gen-paper # generate paper_shiori
+$ ls paper
 cover.html     css            image          info.html      logo           room.html      ryokan.html    timetable.html
+$ invoke gen-paper-pdf # generate pdf from paper_shiori
 ```

@@ -83,36 +83,24 @@ class ShioriGenerator:
         with open(dst, 'w') as f:
             f.write(tmpl.render(v))
 
-    def generate_paper(self, templates, dst_dir):
+    def generate_paper(self, template, dst):
         t = TimeTable(self.timetable_source_file)
         timetable_headings, timetables = t.gen_paper_table()
 
         r = Room(self.room_source_file)
         room_headings, room_tables = r.gen_room_table()
 
-        v = {
-            'cover': {
-                # TODO: ここはself.party_sponsorsを入れなくて良いのか？
-                'sponsor': self.gen_sponsor_table_2(self.normal_sponsor)
-            },
-            'timetable': {
-                'timetable_headings': timetable_headings,
-                'timetables': timetables,
-            },
-            'room': {
-
-                'room_headings': room_headings,
-                'room_tables': room_tables,
-            },
-            'ryokan': {
-                'ryokan': self.md_converter('paper_ryokan')
-            },
-            'info': {
-                'info': self.md_converter('paper_info')
-            }
-        }
         env = Environment(loader=FileSystemLoader('./', encoding='utf-8'))
-        for page_name in list(templates.keys()):
-            tmpl = env.get_template(templates[page_name])
-            with open(os.path.join(dst_dir, page_name + '.html'), 'w') as f:
-                f.write(tmpl.render(v[page_name]))
+        tmpl = env.get_template(template)
+        v = {
+            # TODO: ここはself.party_sponsorsを入れなくて良いのか？
+            'sponsor': self.gen_sponsor_table_2(self.normal_sponsor),
+            'timetable_headings': timetable_headings,
+            'timetables': timetables,
+            'room_headings': room_headings,
+            'room_tables': room_tables,
+            'ryokan': self.md_converter('ryokan'),
+            'info': self.md_converter('info')
+        }
+        with open(dst, 'w') as f:
+            f.write(tmpl.render(v))

@@ -37,15 +37,19 @@ body {
 
 .container {
     width: 640px;
-    margin: 0 auto 4em;
+    margin: 0 auto 2em;
+    page-break-inside: avoid;
 }
 
 header {
     width: 100%;
+    page-break-inside: avoid;
+    page-break-after: always;
 }
 
-#contents {
+.contents {
     background-color: #fff;
+    page-break-inside: avoid;
 }
 
 h2 {
@@ -64,4 +68,10 @@ table {
     margin-bottom: 2em;
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+/* c.f. https://stackoverflow.com/a/25452499 */
+@page {
+  margin-top: 0.5in;
+  margin-bottom: 0.5in;
 }

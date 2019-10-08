@@ -22,19 +22,11 @@ def gen_paper(ctx):
         'data/room.csv',
         'data/sponsor.json',
     )
-    templates_dir = os.path.join('templates', 'paper')
-    templates = {
-        'cover': os.path.join(templates_dir, 'cover.html'),
-        'timetable': os.path.join(templates_dir, 'timetable.html'),
-        'room': os.path.join(templates_dir, 'room.html'),
-        'ryokan': os.path.join(templates_dir, 'ryokan.html'),
-        'info': os.path.join(templates_dir, 'info.html')
-    }
-    sg.generate_paper(templates, 'paper')
+    sg.generate_paper('templates/paper/template.html', 'paper/index.html')
 
 # c.f. https://github.com/miyakogi/pyppeteer#usage
-async def print_page():
-    shiori_path = 'file://' + os.path.join(os.getcwd(), './web/index.html')
+async def print_page(html_path, pdf_path):
+    shiori_path = 'file://' + os.path.join(os.getcwd(), html_path)
     browser = await launch()
     page = await browser.newPage()
 
@@ -42,9 +34,13 @@ async def print_page():
     # PDF化してしまうため、真っ白なPDFが生成される
     await page.goto(shiori_path, { 'waitUntil': 'networkidle0' })
 
-    await page.pdf({'path': 'shiori.pdf' })
+    await page.pdf({'path': pdf_path })
     await browser.close()
 
 @task
-def gen_pdf(c):
-    asyncio.get_event_loop().run_until_complete(print_page())
+def gen_web_pdf(c):
+    asyncio.get_event_loop().run_until_complete(print_page('./web/index.html', 'web-shiori.pdf'))
+
+@task
+def gen_paper_pdf(c):
+    asyncio.get_event_loop().run_until_complete(print_page('./paper/index.html', 'paper-shiori.pdf'))
