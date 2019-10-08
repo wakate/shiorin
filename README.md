@@ -27,8 +27,9 @@
 ### 用意するもの
 
 - 実行環境
-    - [python 3.6.1](https://www.python.org/downloads/)
-    - [pip 9.0.1](https://pip.pypa.io/en/stable/installing/)
+    - [python 3.6.8](https://www.python.org/downloads/)
+    - [pip 19.2.3](https://pip.pypa.io/en/stable/installing/)
+    - 日本語フォント(ex. fonts-ipafont-gothic fonts-ipafont-mincho)
 
 - 足りないディレクトリ
 
@@ -43,9 +44,10 @@
 ### インストール手順
 
 ```
-git clone https://github.com/hnmx4/shiorin.git
+git clone https://github.com/wakate/shiorin.git
 cd shiorin
-pip install invoke Jinja2 Markdown
+pip install -r requirements.txt
+pyppeteer-install
 mv ***/data ./
 mv ***/md ./
 mv ***/web/image ./web/
@@ -57,13 +59,12 @@ mv ***/paper/logo ./paper/
 ## 使い方
 
 ```
-## generate web_shiori
-invoke gen-web
-ls web
+$ invoke gen-web # generate web_shiori
+$ ls web
 css        image      index.html logo
-
-## generate paper_shiori
-invoke gen-paper
-ls paper
+$ invoke gen-web-pdf # generate pdf from web_shiori
+$ invoke gen-paper # generate paper_shiori
+$ ls paper
 cover.html     css            image          info.html      logo           room.html      ryokan.html    timetable.html
+$ invoke gen-paper-pdf # generate pdf from paper_shiori
 ```
