@@ -20,7 +20,8 @@ table.sponsor {
     border: 0;
 }
 table.sponsor td img{
-    height: 120px;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 section.sponsor {
