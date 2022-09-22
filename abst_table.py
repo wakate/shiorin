@@ -9,15 +9,15 @@ class AbstTable(Table):
             self.timetable_sheet = list(csv.reader(f))
 
         self.row_structure = [
-            [6],  # 氏名
-            [8, 9],  # タイトル, 発表区分
-            [10]  # 発表詳細
+            [9],  # 氏名
+            [12, 13],  # タイトル, 発表区分
+            [14]  # 発表詳細
         ]
         self.index_name = {
-            6: 'name',
-            8: 'title',
-            9: 'type',
-            10: 'detail'
+            9: 'name',
+            12: 'title',
+            13: 'type',
+            14: 'detail'
         }
         self.row_looks = [
             Template('{{ name }}'),
