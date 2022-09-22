@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "shiorin"
+version = "0.1.0"
+description = ""
+authors = ["mt-caret <mtakeda.enigsol@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+appdirs = "^1.4.4"
+invoke = "^1.7.1"
+Jinja2 = "^3.1.2"
+Markdown = "^3.4.1"
+MarkupSafe = "^2.1.1"
+pyppeteer = "^1.0.2"
+tqdm = "^4.64.1"
+urllib3 = "^1.26.12"
+websockets = "^10.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

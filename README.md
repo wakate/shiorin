@@ -10,7 +10,6 @@
 .
 ├── README.md
 ├── abst_table.py
-├── data
 ├── md
 ├── paper
 ├── room.py
@@ -27,8 +26,7 @@
 ### 用意するもの
 
 - 実行環境
-    - [python 3.6.8](https://www.python.org/downloads/)
-    - [pip 19.2.3](https://pip.pypa.io/en/stable/installing/)
+    - [poetry](https://python-poetry.org)
     - 日本語フォント(ex. fonts-ipafont-gothic fonts-ipafont-mincho)
 
 - 足りないディレクトリ
@@ -46,14 +44,8 @@
 ```
 git clone https://github.com/wakate/shiorin.git
 cd shiorin
-pip install -r requirements.txt
-pyppeteer-install
-mv ***/data ./
-mv ***/md ./
-mv ***/web/image ./web/
-mv ***/web/logo ./web/
-mv ***/paper/image ./paper/
-mv ***/paper/logo ./paper/
+poetry install
+poetry run pyppeteer-install
 ```
 
 ## 使い方
