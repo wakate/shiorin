@@ -20,13 +20,13 @@ class ShioriGenerator:
     @staticmethod
     def md_converter(dirname):
         md = Markdown()
-        files = os.listdir('md/%s' % dirname)
+        files = os.listdir('data/md/%s' % dirname)
         htmls = []
         for file in files:
             if not file.endswith(".md"):
                 continue
 
-            with open('md/%s/%s' % (dirname, file), 'r') as f:
+            with open('data/md/%s/%s' % (dirname, file), 'r') as f:
                 htmls.append(md.convert(f.read()))
 
         return htmls

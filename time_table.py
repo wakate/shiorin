@@ -15,12 +15,12 @@ class TimeTable(Table):
                 if source[i] != '':
                     dst.append(source[i])
             return '<br>~<br>'.join(dst)
-        elif 6 in index:
+        elif 9 in index:
             if source[6] != '':
-                dst.append("<b>%s</b>" % source[8])
-                dst.append("[%s]<br>" % source[9])
-                dst.append(source[6])
-                dst.append("(%s)" % source[7])
+                dst.append("<b>%s</b>" % source[12])
+                dst.append("[%s]<br>" % source[13])
+                dst.append(source[9])
+                dst.append("(%s)" % source[11])
             return ' '.join(dst)
         else:
             for i in index:
@@ -56,10 +56,11 @@ class TimeTable(Table):
         return counter
 
     def gen_rows(self, content):
+        # TODO: この設定の仕方やべ〜のでdata/timetable.jsonみたいなのでconfigできるようにする
         table_structure = [
             [0, 1],  # 開始時刻、終了時刻
             [3],  # プログラム（セッション内容）
-            [8, 9, 6, 7],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
+            [12, 13, 9, 11],  # 詳細 = 発表タイトル [発表区分]\n発表者名（発表者所属）
             [4]  # 座長
         ]
         rows = []
