@@ -1,10 +1,12 @@
 import csv
+
+from config import Config
 from table import Table
 
 
 class TimeTable(Table):
-    def __init__(self, source_file):
-        with open(source_file, newline='') as f:
+    def __init__(self, source_path: str, config: Config):
+        with open(source_path, newline='') as f:
             self.timetable_sheet = list(csv.reader(f))
 
     @staticmethod

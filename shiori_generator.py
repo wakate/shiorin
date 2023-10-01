@@ -1,4 +1,6 @@
 from jinja2 import Environment, FileSystemLoader
+
+from config import Config
 from time_table import TimeTable
 from abst_table import AbstTable
 from room import Room
@@ -8,12 +10,13 @@ import os
 
 
 class ShioriGenerator:
-    def __init__(self, timetable_csv, room_csv, sponsor_json):
+    def __init__(self, timetable_csv, room_csv, sponsor_json, config_path):
         self.timetable_source_file = timetable_csv
         self.room_source_file = room_csv
         sponsor_source_file = sponsor_json
         with open(sponsor_source_file, 'r') as f:
             sp = json.load(f)
+        self.config = Config(config_path)
         self.normal_sponsor = sp['normal']
         self.party_sponsor = sp['party']
 
