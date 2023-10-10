@@ -2,3 +2,5 @@ venv
 *.swp
 data
 web/index.html
+paper/index.html
+*.pdf
