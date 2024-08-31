@@ -2,3 +2,6 @@ venv
 *.swp
 data
 web/index.html
+web-shiori.pdf
+paper-shiori.pdf
+paper/index.html
